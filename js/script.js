@@ -9,6 +9,45 @@ const headerEl = document.querySelector(".header");
 btnNavEl.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
 });
+
+// close mobile nav after clicking on links
+// select all links in the navigation
+const navLinks = document.querySelectorAll(".main-nav-link");
+
+// function to remove 'nav-open' class from the header
+function closeNav() {
+  const header = document.querySelector(".header");
+  header.classList.remove("nav-open");
+}
+
+// add event listeners to all links
+navLinks.forEach((link) => {
+  link.addEventListener("click", closeNav);
+});
+const sectionHeroEl = document.querySelector(".section-hero");
+// Sticky navigation
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+    console.log(ent);
+
+    if (ent.isIntersecting === false) {
+      document.body.classList.add("sticky");
+    }
+
+    if (ent.isIntersecting === true) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    // In the viewport
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+obs.observe(sectionHeroEl);
+
 ///////////////////////////////////////////////////////////
 // Fixing flexbox gap property missing in some Safari versions
 function checkFlexGap() {
