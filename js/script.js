@@ -1,8 +1,25 @@
-//Set current year
-const yearEL = document.querySelector(".year");
-yearEL.textContent = new Date().getFullYear();
+console.log("Hello world!");
 
-//Make mobile nav work
+const myName = "Jonas Schmedtmann";
+const h1 = document.querySelector(".heading-primary");
+console.log(myName);
+console.log(h1);
+
+// h1.addEventListener("click", function () {
+//   h1.textContent = myName;
+//   h1.style.backgroundColor = "red";
+//   h1.style.padding = "5rem";
+// });
+
+///////////////////////////////////////////////////////////
+// Set current year
+const yearEl = document.querySelector(".year");
+const currentYear = new Date().getFullYear();
+yearEl.textContent = currentYear;
+
+///////////////////////////////////////////////////////////
+// Make mobile navigation work
+
 const btnNavEl = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header");
 
@@ -10,22 +27,40 @@ btnNavEl.addEventListener("click", function () {
   headerEl.classList.toggle("nav-open");
 });
 
-// close mobile nav after clicking on links
-// select all links in the navigation
-const navLinks = document.querySelectorAll(".main-nav-link");
+///////////////////////////////////////////////////////////
+// Smooth scrolling animation
 
-// function to remove 'nav-open' class from the header
-function closeNav() {
-  const header = document.querySelector(".header");
-  header.classList.remove("nav-open");
-}
+const allLinks = document.querySelectorAll("a:link");
 
-// add event listeners to all links
-navLinks.forEach((link) => {
-  link.addEventListener("click", closeNav);
+allLinks.forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const href = link.getAttribute("href");
+
+    // Scroll back to top
+    if (href === "#")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    // Scroll to other links
+    if (href !== "#" && href.startsWith("#")) {
+      const sectionEl = document.querySelector(href);
+      sectionEl.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Close mobile naviagtion
+    if (link.classList.contains("main-nav-link"))
+      headerEl.classList.toggle("nav-open");
+  });
 });
-const sectionHeroEl = document.querySelector(".section-hero");
+
+///////////////////////////////////////////////////////////
 // Sticky navigation
+
+const sectionHeroEl = document.querySelector(".section-hero");
+
 const obs = new IntersectionObserver(
   function (entries) {
     const ent = entries[0];
