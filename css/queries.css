@@ -104,6 +104,7 @@ instead, 1rem = 1em = 16px */
     }
 
     .cta {
+      /* 3/5 = 60% + 2/5 = 40% */
       grid-template-columns: 3fr 2fr;
     }
 
@@ -118,6 +119,7 @@ instead, 1rem = 1em = 16px */
     /* MOBILE NAVIGATION */
     .btn-mobile-nav {
       display: block;
+      z-index: 9999;
     }
 
     .main-nav {
